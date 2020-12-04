@@ -12,7 +12,12 @@ export class ListComponent implements OnInit {
   /*   @Output() forwardSelectedPersonne = new EventEmitter(); */
   constructor(private cvService: CvService) {}
   ngOnInit(): void {
-    this.personnes = this.cvService.getPersonnes();
+    this.cvService.getPersonnes().subscribe(
+      personnes =>  this.personnes = personnes,
+      (err) => {
+        this.personnes = this.cvService.getFPersonnes();
+      }
+    );
   }
   /*   forwardPersonne(selectedPersonne: Personne) {
     this.forwardSelectedPersonne.emit(selectedPersonne);
